@@ -49,19 +49,20 @@ public class Main {
                 int opcion = sc.nextInt();
 
                 if (opcion == 1) {
-                    int prob = random.nextInt(20)+1;
-                    if (prob == 20){
-                        int danho = (int)(danhoGolpe1*1.5) - defensa2;
+                    int prob = random.nextInt(20) + 1;
+                    if (prob == 20) {
+                        int danho = (int) (danhoGolpe1 * 1.5) - defensa2;
                         if (danho < 0) danho = 0;
                         vida2 -= danho;
                         System.out.println(pokemon1 + " hace crítico causando " + danho + " puntos de daño a " + pokemon2);
 
-                    }else {
+                    } else {
                         int danho = danhoGolpe1 - defensa2;
                         if (danho < 0) danho = 0;
                         vida2 -= danho;
                         System.out.println(pokemon1 + " ataca y causa " + danho + " puntos de daño a " + pokemon2);
                     }
+                    turnoPokemon1 = !turnoPokemon1;
                 } else if (opcion == 2) {
                     if (mp1 >= mpGolpeEspecial1) {
                         mp1 -= mpGolpeEspecial1;
@@ -77,60 +78,75 @@ public class Main {
                             vida2 -= danho;
                             System.out.println(pokemon1 + " usa " + golpeEspecial1 + " y causa " + danho + " puntos de daño a " + pokemon2);
                         }
+                        turnoPokemon1 = !turnoPokemon1;
                     } else {
                         System.out.println(pokemon1 + " no tiene suficientes MP. ¡Pierde el turno!");
+                        turnoPokemon1 = !turnoPokemon1;
                     }
+                }else if (opcion == 3) {
+                        estadopokemon(pokemon1, vida1, mp1);
 
                 } else {
-                    System.out.println("Opción no válida. Pierde el turno.");
+                        System.out.println("Opción no válida. Pierde el turno.");
+                        turnoPokemon1 = !turnoPokemon1;
                 }
-            } else {
-                System.out.println("\n Es el turno de " + pokemon2);
-                System.out.println("1. Ataque normal (" + danhoGolpe2 + " daño)");
-                System.out.println("2. " + golpeEspecial2 + " (" + danhoEspecial2 + " daño, " + mpGolpeEspecial2 + " MP)");
-                System.out.print("Elige tu acción: ");
-                int opcion = sc.nextInt();
 
-                if (opcion == 1) {
-                    int prob = random.nextInt(20)+1;
-                    if (prob == 20) {
-                        int danho = (int) (danhoGolpe2 * 1.5) - defensa1;
-                        if (danho < 0) danho = 0;
-                        vida1 -= danho;
-                    System.out.println(pokemon2 + " hace crítico causando " + danho + " puntos de daño a " + pokemon1);
-                    }else {
-                        int danho = danhoGolpe2 - defensa1;
-                        if (danho < 0) danho = 0;
-                        vida1 -= danho;
-                        System.out.println(pokemon2 + " ataca y causa " + danho + " puntos de daño a " + pokemon1);
-                    }
-                } else if (opcion == 2) {
-                    if (mp2 >= mpGolpeEspecial2) {
-                        mp2 -= mpGolpeEspecial2;
-                        int prob = random.nextInt(20)+1;
-                        if (prob == 20){
-                            int danho = (int)(danhoEspecial2*1.5) - defensa1;
+                } else {
+                    System.out.println("\n Es el turno de " + pokemon2);
+                    System.out.println("1. Ataque normal (" + danhoGolpe2 + " daño)");
+                    System.out.println("2. " + golpeEspecial2 + " (" + danhoEspecial2 + " daño, " + mpGolpeEspecial2 + " MP)");
+                    System.out.print("Elige tu acción: ");
+                    int opcion = sc.nextInt();
+
+                    if (opcion == 1) {
+                        int prob = random.nextInt(20) + 1;
+                        if (prob == 20) {
+                            int danho = (int) (danhoGolpe2 * 1.5) - defensa1;
                             if (danho < 0) danho = 0;
                             vida1 -= danho;
-                            System.out.println(pokemon2 + " usa " + golpeEspecial2 + " y hace crítico causando " + danho + " puntos de daño a " + pokemon1);
-
-                        }else {
-                            int danho = danhoEspecial2 - defensa1;
+                            System.out.println(pokemon2 + " hace crítico causando " + danho + " puntos de daño a " + pokemon1);
+                        } else {
+                            int danho = danhoGolpe2 - defensa1;
                             if (danho < 0) danho = 0;
                             vida1 -= danho;
-                            System.out.println(pokemon2 + " usa " + golpeEspecial2 + " y causa " + danho + " puntos de daño a " + pokemon1);
+                            System.out.println(pokemon2 + " ataca y causa " + danho + " puntos de daño a " + pokemon1);
                         }
-                    } else {
-                        System.out.println(pokemon2 + " no tiene suficientes MP. ¡Pierde el turno!");
-                    }
-                } else {
-                    System.out.println("Opción no válida. Pierde el turno.");
-                }
-            }
+                        turnoPokemon1 = !turnoPokemon1;
+                    } else if (opcion == 2) {
+                        if (mp2 >= mpGolpeEspecial2) {
+                            mp2 -= mpGolpeEspecial2;
+                            int prob = random.nextInt(20) + 1;
+                            if (prob == 20) {
+                                int danho = (int) (danhoEspecial2 * 1.5) - defensa1;
+                                if (danho < 0) danho = 0;
+                                vida1 -= danho;
+                                System.out.println(pokemon2 + " usa " + golpeEspecial2 + " y hace crítico causando " + danho + " puntos de daño a " + pokemon1);
 
-            // Cambiar turno
-            turnoPokemon1 = !turnoPokemon1;
-        }
+                            } else {
+                                int danho = danhoEspecial2 - defensa1;
+                                if (danho < 0) danho = 0;
+                                vida1 -= danho;
+                                System.out.println(pokemon2 + " usa " + golpeEspecial2 + " y causa " + danho + " puntos de daño a " + pokemon1);
+                            }
+                        } else {
+                            System.out.println(pokemon2 + " no tiene suficientes MP. ¡Pierde el turno!");
+                        }
+                            turnoPokemon1 = !turnoPokemon1;
+                        }else if (opcion == 3) {
+                            estadopokemon(pokemon1, vida1, mp1);
+
+
+
+                    } else {
+                        System.out.println("Opción no válida. Pierde el turno.");
+                        turnoPokemon1 = !turnoPokemon1;
+                    }
+                }
+
+            }    // Cambiar turno
+
+
+
 
         //Resultado final
         System.out.println("\n¡La batalla ha terminado! ️");
@@ -145,5 +161,8 @@ public class Main {
 
 
 
+    }
+    private static void estadopokemon(String a, int x, int y) {
+        System.out.println(a + " => Vida: " + x + " | MP: " + y);
     }
 }
