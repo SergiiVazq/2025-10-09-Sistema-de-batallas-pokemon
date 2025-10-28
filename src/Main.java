@@ -52,8 +52,26 @@ public class Main {
                     System.out.print("ELIGE ACCIÓN (recuerda que tiene que ser una opción valida): ");
                     opcion = sc.nextInt();
                     if (opcion == 2) {
-                        vida2 = ataquepokemon(pokemon1,vida2,defensa2,danhoGolpe1,mp1,mpGolpeEspecial1,danhoEspecial1);
-                        turnoPokemon1 = !turnoPokemon1;
+                        do {
+                            System.out.println("elije una opcion de ataque:");
+                            System.out.println("\n1. ATAQUE NORMAL");
+                            System.out.println("\n2. ATAQUE ESPECIAL");
+                            opcion = sc.nextInt();
+                        }while(opcion!=1 && opcion!=2);
+                        if(opcion==1){
+                            vida2 = ataquepokemon(pokemon1,vida2,defensa2,danhoGolpe1,danhoEspecial1,opcion);
+                            turnoPokemon1 = !turnoPokemon1;
+                        }else if(opcion==2){
+                            if (mp1 <= mpGolpeEspecial1){
+                                System.out.println("\nNO TIENES SUFICIENTE MP PARA REALIZAR ESTE ATAQUE ...");
+                            }else {
+                                mp1 = controlmp(mp1,mpGolpeEspecial1);
+                                vida2 = ataquepokemon(pokemon1,vida2,defensa2,danhoGolpe1,danhoEspecial1,opcion);
+                                turnoPokemon1 = !turnoPokemon1;
+                            }
+
+                        }
+
                     } else if (opcion == 3) {
                         estadopokemon(pokemon1, vida1, mp1);
 
@@ -70,9 +88,29 @@ public class Main {
                     System.out.print("ELIGE ACCIÓN (recuerda que tiene que ser una opción valida): ");
                     opcion = sc.nextInt();
                     if (opcion == 2) {
-                        vida1 = ataquepokemon(pokemon2,vida1,defensa1,danhoGolpe2,mp2,mpGolpeEspecial2,danhoEspecial2);
+                        do {
+                            System.out.println("elije una opcion de ataque:");
+                            System.out.println("\n1. ATAQUE NORMAL");
+                            System.out.println("\n2. ATAQUE ESPECIAL");
+                            opcion = sc.nextInt();
+                        }while(opcion!=1 && opcion!=2);
+                        if (opcion == 1) {
+                            vida1 = ataquepokemon(pokemon2,vida1,defensa1,danhoGolpe2,danhoEspecial2,opcion);
+                            turnoPokemon1 = !turnoPokemon1;
+                        }else if (opcion == 2) {
+                            if (mp2 <= mpGolpeEspecial2){
+                                System.out.println("\nNO TIENES SUFICIENTE MP PARA REALIZAR ESTE ATAQUE REALIZA OTRA ACCION...");
+                            }else {
+                                mp2 = controlmp(mp2,mpGolpeEspecial2);
+                                vida1 = ataquepokemon(pokemon2,vida1,defensa1,danhoGolpe2,danhoEspecial2,opcion);
+                                turnoPokemon1 = !turnoPokemon1;
+                            }
 
-                        turnoPokemon1 = !turnoPokemon1;
+
+                        }
+
+
+
                     } else if (opcion == 3) {
                         estadopokemon(pokemon1, vida1, mp1);
 
@@ -89,9 +127,7 @@ public class Main {
 
         //Resultado final
         System.out.println("\n¡La batalla ha terminado! ️");
-        if (vida1 <= 0 && vida2 <= 0) {
-            System.out.println("¡Empate! Ambos Pokémon han caído.");
-        } else if (vida1 <= 0) {
+        if (vida1 <= 0) {
             System.out.println(pokemon2 + " gana la batalla.");
         } else {
             System.out.println(pokemon1 + " gana la batalla.");
@@ -104,15 +140,9 @@ public class Main {
     private static void estadopokemon(String a, int x, int y) {
         System.out.println(a + " => Vida: " + x + " | MP: " + y);
     }
-    private static int ataquepokemon(String a, int vidaenemigo, int defensarival, int ataque, int mp, int mpespecial, int danoespecial) {
-        int eleccion = 0;
+    private static int ataquepokemon(String a, int vidaenemigo, int defensarival, int ataque, int danoespecial, int eleccion) {
+
         Random miGenerador = new Random();
-        do {
-            System.out.println("elije una opcion de ataque:");
-            System.out.println("\n1. ATAQUE NORMAL");
-            System.out.println("\n2. ATAQUE ESPECIAL");
-            Scanner input = new Scanner(System.in);
-            eleccion = input.nextInt();
 
 
             if (eleccion == 1) {
@@ -131,8 +161,7 @@ public class Main {
                 }
 
             } else if (eleccion == 2) {
-                if (mp >= mpespecial) {
-                    mp -= mpespecial;
+
 
                     int prob = miGenerador.nextInt(20) + 1;
                     if (prob == 20) {
@@ -147,16 +176,14 @@ public class Main {
                         System.out.println(a + " usa " + danoespecial + " y causa " + danho + " puntos de daño a ");
                     }
 
-                } else {
-                    System.out.println(a + " no tiene suficientes MP. ¡Elije otra opción!");
-                    eleccion = 0;
+
 
                 }
-            }
-        }while (eleccion!=1 && eleccion!=2);
+
+
             return vidaenemigo;
     }
-    private static int controlmp(int x){
-        return x;
+    private static int controlmp(int mp, int mpespecial) {
+        return mp - mpespecial;
     }
 }
